@@ -1,14 +1,21 @@
-import java.util.Scanner;
+class Temperature {
+    double celsius;
 
-public class Temperature {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    static String scale = "Celsius";
 
-        System.out.print("Enter temperature in Celsius: ");
-        double celsius = sc.nextDouble();
-
+    void convert() {
         double fahrenheit = (celsius * 9 / 5) + 32;
+        double kelvin = celsius + 273.15;
 
-        System.out.println("Temperature in Fahrenheit: " + fahrenheit);
+        System.out.println("Celsius = " + celsius);
+        System.out.println("Fahrenheit = " + fahrenheit);
+        System.out.println("Kelvin = " + kelvin);
+    }
+
+    public static void main(String[] args) {
+        Temperature t = new Temperature();
+
+        t.celsius = 25;
+        t.convert();
     }
 }

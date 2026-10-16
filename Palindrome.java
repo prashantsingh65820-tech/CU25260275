@@ -1,24 +1,30 @@
-import java.util.Scanner;
+class Palindrome {
+    static int countChecks = 0;
 
-public class Palindrome {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Enter an integer: ");
-        int n = sc.nextInt();
-
-        int original = n;
+    void checkPalindrome(int number) {
+        int original = number;
         int reverse = 0;
+        int digit;
 
-        while (n != 0) {
-            int digit = n % 10;
+        while (number > 0) {
+            digit = number % 10;
             reverse = reverse * 10 + digit;
-            n = n / 10;
+            number = number / 10;
         }
 
-        if (reverse == original)
-            System.out.println("Palindrome Number");
+        countChecks++;
+
+        if (original == reverse)
+            System.out.println(original + " is a Palindrome");
         else
-            System.out.println("Not a Palindrome Number");
+            System.out.println(original + " is not a Palindrome");
+    }
+
+    public static void main(String[] args) {
+        Palindrome p = new Palindrome();
+
+        p.checkPalindrome(121);
+
+        System.out.println("Total Checks = " + countChecks);
     }
 }
