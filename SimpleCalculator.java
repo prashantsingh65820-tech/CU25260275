@@ -1,30 +1,79 @@
-import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.*;
 
-public class SimpleCalculator {
+class SimpleCalculator extends Frame implements ActionListener {
+    TextField num1, num2;
+    Label result;
+    Button add, subtract, multiply, divide;
+
+    SimpleCalculator() {
+        setTitle("AWT Calculator");
+        setSize(350, 250);
+        setLayout(new GridLayout(5, 2, 5, 5));
+
+        add(new Label("First Number:"));
+        num1 = new TextField();
+        add(num1);
+
+        add(new Label("Second Number:"));
+        num2 = new TextField();
+        add(num2);
+
+        add = new Button("Addition");
+        subtract = new Button("Subtraction");
+        multiply = new Button("Multiplication");
+        divide = new Button("Division");
+
+        add(add);
+        add(subtract);
+        add(multiply);
+        add(divide);
+
+        result = new Label("Result: ");
+        add(result);
+
+        add.addActionListener(this);
+        subtract.addActionListener(this);
+        multiply.addActionListener(this);
+        divide.addActionListener(this);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        try {
+            double a = Double.parseDouble(num1.getText());
+            double b = Double.parseDouble(num2.getText());
+            double r;
+
+            if (e.getSource() == add)
+                r = a + b;
+            else if (e.getSource() == subtract)
+                r = a - b;
+            else if (e.getSource() == multiply)
+                r = a * b;
+            else {
+                if (b == 0) {
+                    result.setText("Cannot divide by zero!");
+                    return;
+                }
+                r = a / b;
+            }
+
+            result.setText("Result: " + r);
+
+        } catch (NumberFormatException ex) {
+            result.setText("Enter valid numbers!");
+        }
+    }
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Enter first number: ");
-        double a = sc.nextDouble();
-
-        System.out.print("Enter second number: ");
-        double b = sc.nextDouble();
-
-        System.out.print("Enter operator (+, -, *, /): ");
-        char op = sc.next().charAt(0);
-
-        if (op == '+')
-            System.out.println("Result = " + (a + b));
-        else if (op == '-')
-            System.out.println("Result = " + (a - b));
-        else if (op == '*')
-            System.out.println("Result = " + (a * b));
-        else if (op == '/') {
-            if (b != 0)
-                System.out.println("Result = " + (a / b));
-            else
-                System.out.println("Cannot divide by zero");
-        } else
-            System.out.println("Invalid Operator");
+        new SimpleCalculator();
     }
 }
